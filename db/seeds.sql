@@ -30,4 +30,14 @@ VALUES ('Director of Photography', 75000, 1),
 
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ()
+VALUES ('Ryan', 'Ricketts',),
+       ('Wendell', 'Smurf',),
+       ('Tim', 'Bot'),
+       ('Setrige', 'Crawford'),
+       ('Marc', 'Abijato'),
+       ('DJ', 'Exclusive'),
+       ('Richard', 'McLean'),
+       ('Prescott', 'Gibbs'),
+       ('Samantha', 'Savory'),
+       ('LaTasha', 'McCoy'),
+       ()
