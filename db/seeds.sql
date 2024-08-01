@@ -26,4 +26,8 @@ VALUES ('Director of Photography', 75000, 1),
        ('Sales Assistant', 45000, 6),
        ('Social Media Manager', 60000, 7),
        ('Writer', 70000, 8),
-       ('CEO', 120000, 9),
+       ('CEO', 120000, 9);
+
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ()
