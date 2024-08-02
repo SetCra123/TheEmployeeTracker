@@ -156,7 +156,7 @@ function viewEmployeesByDepartment() {
             },
         ])
 
-         .then((res) => db.findAllEmployeesByDepartment(res.departmentId))
+         .then((res) => db.findEmployeesByDepartment(res.departmentId))
          .then(({rows}) => {
             let employees = rows;
             console.log("\n");
@@ -414,7 +414,7 @@ function deleteDepartment() {
           "Which department would you like to remove? (Warning: This will also remove the department's associated roles and employees)",
         choices: departmentChoices,
       })
-        .then((res) => db.deleteDepartment(res.departmentId))
+        .then((res) => db.removeDepartment(res.departmentId))
         .then(() => console.log(`Deleted department from the database`))
         .then(() => loadPrompts());
     });

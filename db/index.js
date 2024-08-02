@@ -22,6 +22,14 @@ showAllEmployees() {
 }
 
 
+findEmployeesByDepartment(departmentId) {
+    return this.query(
+      'SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department department on role.department_id = department.id WHERE department.id = $1;',
+      [departmentId]
+    );
+  }
+
+
 createNewEmployee(employee) {
     const { first_name, last_name, role_id, manager_id } = employee;
     return this.query(
@@ -61,3 +69,30 @@ createNewRole(role) {
 deleteRole(roleId) {
     return this.query('DELETE FROM role WHERE id = $1', [roleId]);
 }
+
+findAllDepartments() {
+    return this.query('SELECT department.id, department.name FROM department;');
+  }
+
+
+
+  createDepartment(department) {
+    return this.query('INSERT INTO department (name) VALUES ($1)', [
+      department.name,
+    ]);
+  }
+
+  
+  removeDepartment(departmentId) {
+    return this.query('DELETE FROM department WHERE id = $1', [departmentId]);
+  }
+
+  viewDepartmentBudgets() {
+    return this.query(
+      'SELECT department.id, department.name, SUM(role.salary) AS utilized_budget FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id GROUP BY department.id, department.name;'
+    );
+  }
+
+
+
+  module.exports = new DB();
