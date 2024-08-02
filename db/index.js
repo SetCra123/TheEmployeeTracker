@@ -13,7 +13,7 @@ class DB {
                 user.release();
             }
     }
-}
+
 
 showAllEmployees() {
     return this.query(
@@ -93,6 +93,6 @@ findAllDepartments() {
     );
   }
 
-
+}
 
   module.exports = new DB();
