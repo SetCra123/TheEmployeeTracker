@@ -33,3 +33,31 @@ createNewEmployee(employee) {
 deleteEmployee(employeeId) {
     return this.query('DELETE FROM employee WHERE id = $1', [employeeId]);
   }
+
+
+newEmployeeRole (employeeId, roleId) {
+    return this.query('UPDATE employee SET role_id = $1 WHERE id = $2', [
+       roleId,
+       employeeId, 
+    ]);
+}
+
+
+findAllRoles() {
+    return this.query(
+        'SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;',
+    )
+}
+
+createNewRole(role) {
+    const { title, salary, department_id } = role;
+    return this.query(
+        'INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)',
+        [title, salary, department_id]
+    );
+}
+
+
+deleteRole(roleId) {
+    return this.query('DELETE FROM role WHERE id = $1', [roleId]);
+}
