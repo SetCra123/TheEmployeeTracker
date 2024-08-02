@@ -81,7 +81,7 @@ function loadPrompts()  {
             ],
         },
     ]).then((res) => {
-        let selection = res.selection;
+        let selection = res.choice;
 
         switch (selection) {
             case "VIEW_EMPLOYEES":
