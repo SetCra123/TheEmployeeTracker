@@ -81,7 +81,7 @@ function loadPrompts()  {
             ],
         },
     ]).then((res) => {
-        let selection = res.choice;
+        let selection = res.selection;
 
         switch (selection) {
             case "VIEW_EMPLOYEES":
@@ -141,8 +141,8 @@ function viewEmployees() {
 
 function viewEmployeesByDepartment() {
     db.findAllDepartments().then(({ rows }) => {
-        let depts = rows;
-        const deptChoices = departments.map(({ id, name }) => ({
+        let departments = rows;
+        const departmentChoices = departments.map(({ id, name }) => ({
             name: name,
             value: id,
         }));
