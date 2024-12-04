@@ -81,7 +81,7 @@ function loadPrompts()  {
             ],
         },
     ]).then((res) => {
-        let selection = res.selection;
+        let selection = res.choice;
 
         switch (selection) {
             case "VIEW_EMPLOYEES":
@@ -429,7 +429,7 @@ function deleteDepartment() {
         console.log("\n");
         console.table(departments);
       })
-      .then(() => loadMainPrompts());
+      .then(() => loadPrompts());
   }
   
   function quit() {
