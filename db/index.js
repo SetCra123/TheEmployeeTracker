@@ -22,7 +22,7 @@ class DB {
       console.log('With arguments:', args);
       try {
           const result = await client.query(sql, args);
-          return result.rows; // Return rows directly for convenience
+          return result; 
       } catch (error) {
           console.error('Database query failed:', error);
           throw error;
@@ -87,7 +87,7 @@ deleteRole(roleId) {
 }
 
 findAllDepartments() {
-    return this.query('SELECT department.id, department.name FROM department;');
+    return this.query('SELECT id, name FROM department;');
   }
 
 
@@ -103,11 +103,7 @@ findAllDepartments() {
     return this.query('DELETE FROM department WHERE id = $1', [departmentId]);
   }
 
-  viewDepartmentBudgets() {
-    return this.query(
-      'SELECT department.id, department.name, SUM(role.salary) AS utilized_budget FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id GROUP BY department.id, department.name;'
-    );
-  }
+  
 
 }
 

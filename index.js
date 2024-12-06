@@ -140,32 +140,46 @@ function viewEmployees() {
 }
 
 function viewEmployeesByDepartment() {
-    db.findAllDepartments().then(({ rows }) => {
-        let departments = rows;
-        const departmentChoices = departments.map(({ id, name }) => ({
-            name: name,
-            value: id,
-        }));
-        
-        prompt([
-            {
-              type: "list",
-              name: "departmentId",
-              message: "Which department would you like to see employees for?",
-              choices: departmentChoices,
-            },
-        ])
+  db.findAllDepartments()
+      .then(({ rows }) => {
+          // Check if rows exist and contain data
+          if (!rows || rows.length === 0) {
+              console.error("No departments found in the database.");
+              return; // Exit the function if no data
+          }
 
-         .then((res) => db.findEmployeesByDepartment(res.departmentId))
-         .then(({rows}) => {
-            let employees = rows;
-            console.log("\n");
-            console.table(employees);
+          // Map rows to choices
+          const departmentChoices = rows.map(({ id, name }) => ({
+              name: name,
+              value: id,
+          }));
 
-         })
-         .then(() => loadPrompts());
-    
-    });
+          // Prompt user for department selection
+          return prompt([
+              {
+                  type: "list",
+                  name: "departmentId",
+                  message: "Which department would you like to see employees for?",
+                  choices: departmentChoices,
+              },
+          ]);
+      })
+      .then((res) => {
+          if (!res) return; // Exit if no response from the previous step
+          return db.findEmployeesByDepartment(res.departmentId);
+      })
+      .then(({ rows }) => {
+          if (!rows || rows.length === 0) {
+              console.log("\nNo employees found in this department.\n");
+          } else {
+              console.log("\n");
+              console.table(rows); // Display employees in a table
+          }
+      })
+      .then(() => loadPrompts()) // Return to main menu or other prompts
+      .catch((err) => {
+          console.error("An error occurred:", err.message);
+      });
 }
 
 
